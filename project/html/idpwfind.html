@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <title>비밀번호 찾기</title>
+    <link href="/assets/css/pclogin.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="wrap">
+
+        <div id="container">
+            <div class="loginBox">
+                <div class="loginForm">
+                    <h3>비밀번호 찾기</h3>
+                    <input type="text" placeholder="이메일을 입력하세요." class="id" id="id">
+                    <button type="submit" class="find" id="find">메일 보내기</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    const email = document.getElementById('id');
+    const find = document.getElementById('find');
+    find.addEventListener('click', () => {
+        if(email.value == 'acid@naver.com'){
+            alert('등록된 이메일로 메일을 보냈습니다.')
+            alert('로그인 화면으로 되돌아 갑니다.')
+                window.location.href = 'jinjalogin.html';
+        }
+        else{
+            alert('존재하지 않는 이메일입니다.')
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection</title>
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+ /* 스크린을 예매하는 소비자를 위하여 눈에 잘 보이게 하기 위하여 바깥 테두리 검정색으로 만들고 가운데 정렬을 함 */
+        .screen {
+            display: flex;
+            justify-content: center;
+            width: 1000px;
+            border: 3px solid black;
+            font-size: larger;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+/* 선택되는 좌석을 유동성있게 변경하기 위하여 table이 아닌 grid를 사용함 또한 번호의 가시성을 높히기 위하여 20개씩 끊어서 작성함 */
+        .ticketing {
+            display: grid;
+            grid-template-columns: auto repeat(20, auto);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+
+        .seat.selected {
+            background-color: lightgray;
+        }
+
+        /* 선택완료 버튼은 좌석을 선택 했을 때 등장하게 하기위하여 display: none 사용 */
+        .choiceButton {
+            width: 300px;
+            height: 100px;
+            font-size: larger;
+            display: none;
+            margin-top: 20px;
+        }
+
+        .selctSeat {
+            font-size: 20px;
+            display: none;
+            background-color: #9f3ff8;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        /* 사람들이 지나가는 통로를 만들기 위하여 6번자리와 16번자리에 바깥여백인 margin을 사용하여 공간 확보 */
+        .seat:nth-child(6) {
+            margin-right: 50px;
+        }
+
+        .seat:nth-child(16) {
+            margin-right: 50px;
+        }
+
+        /* x열은 선택되는 것이 아니라 표시만 되는 것을 표시 하기 위하여 바깥 테두리를 없앰 */
+        .seat:nth-child(21n+1) {
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="screen">SCREEN</div>
+    <div class="ticketing"></div>
+    <div class="selctSeat"></div>
+    <button class="choiceButton">선택완료</button>
+
+    <script>
+        //DOMContentLoaded 이벤트를 사용하는 것이 좋습니다. 
+        //이 이벤트를 사용하면 HTML 문서의 로드가 완료되었을 때 
+        //JavaScript 코드를 실행할 수 있으므로, 화면에 무언가를 그리기 전에 하는 초기화 작업임
+        //이것은 사용자 경험을 개선하고 스크립트의 실행 속도를 높일 수 있습니다.
+        // 따라서 DOMContentLoaded 이벤트를 사용하는 것이 일반적으로 권장되는 방법.
+        document.addEventListener('DOMContentLoaded', () => {
+            //size 설정
+            const size = 20;
+
+            //열을 설정하는 리스트 생성
+            const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+
+            //선택된 좌석을 표시하기위한 리스트 초기화
+            const selectedSeats = [];
+
+            // js에서 다루기 쉽게하기위하여 변수설정
+            const ticketingDiv = document.querySelector('.ticketing');
+            const choiceButton = document.querySelector('.choiceButton');
+            const selctSeat = document.querySelector('.selctSeat');
+
+             //  'rows' 배열에 있는 각 요소에 대해 반복문 실행
+            rows.forEach(row => {
+                // 1부터 size + 1까지의 숫자에 대해 반복문 실행
+                for (let i = 0; i < size + 1; i++) {
+                     // div 요소를 생성하여 cell 변수에 할당
+                    const cell = document.createElement('div');
+                     // cell 요소의 클래스를 'seat'으로 설정
+                    cell.className = 'seat';
+                    // cell 요소의 'data-seat' 속성을 현재 좌석의 행과 열을 나타내는 문자열로 설정
+                    cell.setAttribute('data-seat', `${row}${i}`)
+                    
+                    if (i === 0) {
+                        cell.textContent = row; // cell 요소의 텍스트 내용을 현재 행의 문자로 설정 (행 번호)
+                        cell.classList.add('row-label');    // cell 요소에 'row-label' 클래스 추가
+                    } else {    // 열 번호가 0이 아닌 경우(실제 좌석인 경우)
+                        // cell을 클릭했을 때의 이벤트 리스너 추가
+                        cell.addEventListener('click', (e) => {
+                            // cell 요소에 'selected' 클래스를 toggle(추가/제거)하여 선택 상태를 변경
+                            cell.classList.toggle('selected');
+                             // 현재 클릭된 좌석의 data-seat 속성 값을 가져와 nowSeat 변수에 할당
+                            const nowSeat = e.target.getAttribute('data-seat');
+                             // nowSeat이 selectedSeats 배열에서 몇 번째 인덱스에 있는지 확인하여 index 변수에 할당
+                            const index = selectedSeats.indexOf(nowSeat);
+
+                            // index가 -1이면(선택된 좌석이 아니면)
+                            if (index === -1) {
+                                // selectedSeats 배열에 nowSeat을 추가
+                                selectedSeats.push(nowSeat);
+                            } else {
+                                // selectedSeats 배열에서 해당 좌석을 제거
+                                selectedSeats.splice(index, 1);
+                            }
+                            updateButtonVisibility();
+                        });
+                    }
+                    // 생성된 cell 요소를 ticketingDiv에 추가
+                    ticketingDiv.appendChild(cell);
+                }
+            });
+
+            //좌석이 선택 될 시 선택완료 버튼 출력 & 선택된 좌석 행렬 출력
+            function updateButtonVisibility() {
+                const selected = document.querySelectorAll('.selected');
+                choiceButton.style.display = selected.length > 0 ? 'block' : 'none';
+                selctSeat.style.display = selected.length > 0 ? 'block' : 'none';
+                selctSeat.innerHTML = `현재 선택된 좌석: ${selectedSeats.join(', ')}`;
+            }
+
+            //선택완료 버튼 눌렸을 시 선택된 좌석의 행렬&메세지&금액&총원 alert로 출력
+            choiceButton.addEventListener('click', () => {
+                const count = selectedSeats.length;
+                const selectedSeatInfo = selectedSeats.join(', ');
+                alert(`${selectedSeatInfo} 예약이 완료 되었습니다. 총 ${count * 16000}원 (총 ${count}명)`);
+                selectedSeats.length = 0;
+                updateButtonVisibility();
+                //아래코드는 결제 화면으로 넘어가는 코드임.
+                //location.href = "https://naver.com";
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
   var videos = [
-    "/project/video/001.mp4",
-    "/project/video/002.mp4",
-    "/project/video/003.mp4",
-    "/project/video/004.mp4",
-    "/project/video/005.mp4"
+    "/video/001.mp4",
+    "/video/002.mp4",
+    "/video/003.mp4",
+    "/video/004.mp4",
+    "/video/005.mp4"
   ];
 
   var randomIndex = Math.floor(Math.random() * videos.length);
@@ -13,3 +13,4 @@ document.addEventListener("DOMContentLoaded", function() {
   var videoElement = document.querySelector(".popular_movie video");
   videoElement.setAttribute("src", randomVideo);
 });
+

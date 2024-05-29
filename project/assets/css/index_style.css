@@ -1,13 +1,12 @@
-* {margin: 0;padding: 0;}
-li{list-style: none;}
-a{text-decoration: none;}
+* {margin: 0; padding: 0;}
+li {list-style: none;}
+a {text-decoration: none;}
 
 /* ===============대가리부분======================= */
-
 header {
   height: 80px;
   width: 100%;
-  background: #9f3ff8;
+  background: linear-gradient(to left,#DB4553, #F05F32); 
   color: #fff;
   text-align: center;
   position: sticky;
@@ -21,7 +20,7 @@ header {
   height: 100%;
   display: flex;
   width: 25%;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .title_t {
@@ -39,59 +38,55 @@ header {
   height: 100%;
   float: left;
   display: flex;
-  align-items: flex-end; /* 메뉴를 아래쪽으로 정렬 */
+  align-items: flex-end;
 }
 
 nav {
-  float:left;
+  float: left;
   height: 100%;
-  width: 100%; /* 메뉴의 너비 */
-  margin: auto; /* 중앙 정렬 */
+  width: 100%;
+  margin: auto;
 }
 
 nav ul li a {
   margin-left: 40px;
-  float:left;
+  float: left;
   justify-content: center;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
   margin-top: 45px;
 }
-.menu_b{
+.menu_b {
   width: 100%;
-  height: 100%; 
+  height: 100%;
 }
-.menu_b li{
-  float:right;
+.menu_b li {
+  float: right;
   margin-right: 30px;
 }
 
 nav ul li a:hover {
   text-decoration: underline;
 }
-/* 여기서부터 서브메뉴 칸  */
-li>ul>li{
+li > ul > li {
   line-height: 50px;
   background-color: #94a9ff;
 }
-li>ul{
-    height: 0; 
-    overflow: hidden;
-  
+li > ul {
+  height: 0; 
+  overflow: hidden;
 }
-.menu_a>li:hover{
+.menu_a > li:hover {
   background-color: #94a9ff;
   transition-duration: 0.5s;
 }
-.menu_a>li:hover .ul{
+.menu_a > li:hover .ul {
   height: 250px; 
   transition-duration: 1s;
-
 }
 
 /* ===============몸통부분======================= */
-
 .main_contents {
   height: 100%;
   max-width: 100%;
@@ -104,24 +99,30 @@ li>ul{
 
 .contents {
   width: 80%;
-  margin: auto; /* 중앙 정렬을 위해 추가 */
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
-  gap: 20px; /* 열과 행 사이의 간격 */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
 .movie {
-  width: 100%; /* 영화 이미지 컨테이너의 너비를 100%로 설정 */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+  margin-bottom: 25px;
+  width: 100%;
 }
 
 .movie img {
-  width: 100%; /* 이미지가 컨테이너에 꽉 차게 설정 */
-  height: auto; /* 이미지의 세로 비율을 유지하면서 가로 비율에 맞춤 */
-  border-radius: 5px; /* 이미지에 둥근 모서리 적용 */
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.container {
+  text-align: center;
+  padding: 10px 20px;
 }
 
 /* ===============popular_movie 부분======================= */
-
 .popular_movie {
   margin: auto;
   width: 60%;
@@ -137,10 +138,12 @@ li>ul{
 }
 
 /* ===============바닥부분======================= */
-
 footer {
-  text-align: center;
+  text-align: left;
   padding: 10px 0;
-  background: #9f3ff8;
-  color: #fff;
+  background: #b9b9b988;
+  color: #00000055;
+}
+footer>p{
+  margin-left: 40px
 }
