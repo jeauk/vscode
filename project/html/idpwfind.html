@@ -1,13 +1,56 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 찾기</title>
     <link href="/assets/css/pclogin.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/index_style.css">
+    <link rel="icon" href="/images/aa.png"/>
 </head>
 
 <body>
+  <header>
+    <div class="title">
+      <div class="title_name">
+        <a href="/index.html">
+          <img src="/images/logo.png"></img>>
+        </a>
+      </div>
+      <div class="title_menu">
+        <nav>
+          <ul class="menu_a">
+            <li>
+              <a href="/html/movie_list.html">영화목록</a>
+              <ul class="submenu_a">
+                <li><a href="#">영화1</a></li>
+                <li><a href="#">영화2</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">예약</a>
+              <ul class="submenu_b">
+                <li><a href="#">예약1</a></li>
+                <li><a href="#">예약2</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">극장</a>
+              <ul class="submenu_c">
+                <li><a href="#">극장1</a></li>
+                <li><a href="#">극장2</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="menu_b">
+            <li><a href="/html/jinjalogin.html">로그인</a></li>
+            <li><a href="/html/joinanim.html">회원가입</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
     <div id="wrap">
-
         <div id="container">
             <div class="loginBox">
                 <div class="loginForm">
@@ -17,10 +60,10 @@
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 <script>
+    const tilte = document.querySelector
     const email = document.getElementById('id');
     const find = document.getElementById('find');
     find.addEventListener('click', () => {

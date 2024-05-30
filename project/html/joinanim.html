@@ -4,33 +4,282 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link href="/assets/css/reset.css" rel="stylesheet">
-    <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/joinform.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/index_style.css">
+    <link rel="icon" href="/images/aa.png"/>
 </head>
 
 <body>
-    <div id="wrap">
-
-
-        <!--container-->
-        <div id="container">
-            <h2>이메일로 회원가입</h2>
-            <div class="joinForm">
-                <div class="fgroup"><label for="email"></label><input type="email" placeholder="이메일" name="email"></div>
-                <div class="fgroup"><label for="email"></label><input type="id" placeholder="아이디" name="id"></div>
-                <div class="fgroup"><label for="password"></label><input type="password" placeholder="비밀번호" name="password"></div>
-                <div class="fgroup"><label for="name"></label><input type="text" placeholder="이름" name="name"></div>
-                <div class="fgroup"><label for="nick"></label><input type="text" placeholder="전화번호" name="nick"></div>
-            </div>
-            <!--.joinForm-->
-            <button class="submit">가입하기</button>
+    <header>
+        <div class="title">
+          <div class="title_name">
+            <a href="/index.html">
+              <img src="/images/logo.png"></img>>
+            </a>
+          </div>
+          <div class="title_menu">
+            <nav>
+              <ul class="menu_a">
+                <li>
+                  <a href="/html/movie_list.html">영화목록</a>
+                  <ul class="submenu_a">
+                    <li><a href="#">영화1</a></li>
+                    <li><a href="#">영화2</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">예약</a>
+                  <ul class="submenu_b">
+                    <li><a href="#">예약1</a></li>
+                    <li><a href="#">예약2</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">극장</a>
+                  <ul class="submenu_c">
+                    <li><a href="#">극장1</a></li>
+                    <li><a href="#">극장2</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <ul class="menu_b">
+                <li><a href="/html/jinjalogin.html">로그인</a></li>
+                <li><a href="/html/joinanim.html">회원가입</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
+      </header>
 
-        <!--#footer-->
+    
+    <main>
+        <fieldset>
+            <input type="text" id="useremail" placeholder="이메일">
+        </fieldset>
+        <div class="mailsuccess-message hide">사용할 수 있는 이메일입니다</div>
+        <div class="mailfail-message hide">이메일 형식이 아닙니다</div>
+
+        <fieldset>
+            <input type="text" id="username" placeholder="아이디" />
+        </fieldset>
+
+        <div class="success-message hide">사용할 수 있는 아이디입니다</div>
+        <div class="failure-message hide">아이디는 4~12글자이어야 합니다</div>
+        <div class="failure-message2 hide">영어 또는 숫자만 가능합니다</div>
+
+        <fieldset>
+            <input type="password" id="password" placeholder="비밀번호" />
+        </fieldset>
+        <div class="passsuccess-message hide">사용할 수 있는 비밀번호입니다</div>
+        <div class="strongPassword-message hide">8글자 이상, 영문, 숫자, 특수문자(@$!%*#?&)를 사용하세요</div>
+
+        <fieldset>
+            <input type="password" id="password-retype" placeholder="비밀번호 확인" />
+        </fieldset>
+        <div class="mismatch-message hide">비밀번호가 일치하지 않습니다</div>
+
+        <fieldset>
+            <input type="text" id="name" placeholder="성명" />
+        </fieldset>
+        <fieldset>
+            <input type="text" id="callname" placeholder="전화번호" />
+        </fieldset>
+        <div class="notnum-message hide">숫자만 적어야 합니다.</div>
+
         
-    </div>
+
+        <fieldset class="signup">
+            <button type="button" id="signupim" disabled>회원가입</button>
+        </fieldset>
+        
+
+    </main>
     <!--#wrap-->
 </body>
+<script>
+    let useremail = document.querySelector('#useremail'); //이메일
+    let mailsuccessmessage = document.querySelector('.mailsuccess-message'); //이메일가능
+    let mailfailmessage = document.querySelector('.mailfail-message'); //이메일실패
 
+    let elusername = document.querySelector('#username'); //id
+    // 2. 성공 메시지 정보 가져오기
+    let elSuccessMessage = document.querySelector('.success-message'); 
+    // 3. 실패 메시지 정보 가져오기 (글자수 제한 4~12글자)
+    let elFailureMessage = document.querySelector('.failure-message');
+    // 4. 실패 메시지2 정보 가져오기 (영어 또는 숫자)
+    let elFailureMessageTwo = document.querySelector('.failure-message2'); 
+
+    let elInputPassword = document.querySelector('#password');
+    let passsuccessmessage = document.querySelector('.passsuccess-message');
+    let elStrongPasswordMessage = document.querySelector('.strongPassword-message');
+
+    let elInputPasswordRetype = document.querySelector('#password-retype');
+    let elMismatchMessage = document.querySelector('.mismatch-message');
+
+    let name = document.querySelector('#name');
+    let callname = document.querySelector('#callname');
+    let notnummessage = document.querySelector('.notnum-message');
+    const requiredFilledCount = 6;
+    const signup = document.getElementById('signupim');
+
+
+
+    let required1 = 0;
+    let required2 = 0;
+    let required3 = 0;
+    let required4 = 0;
+    let required5 = 0;
+    let required6 = 0;
+        let notdisabled = 0;
+    
+    function idLength(value) {
+        return value.length >= 4 && value.length <= 12
+    }
+    function onlyNumberAndEnglish(str) {
+        return /^[A-Za-z0-9][A-Za-z0-9]*$/.test(str);
+    }
+    function strongPassword(str) {
+        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(str);
+    }
+    function isMatch(password1, password2) {
+        return password1 === password2;
+    }
+
+    function isValidEmail(str) {
+        // 이메일이 '@'를 포함하고 '.com'으로 끝나는지 확인
+        return str.includes('@') && str.endsWith('.com');
+    }
+    function onlyNumber(str){
+        return /^\d*$/.test(str);
+    }
+    useremail.onkeyup = function () {
+        if (isValidEmail(useremail.value)) {
+            mailsuccessmessage.classList.remove('hide');
+            mailfailmessage.classList.add('hide');
+     required1 = 1;
+        } else {
+            mailfailmessage.classList.remove('hide');
+            mailsuccessmessage.classList.add('hide');
+     required1 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    }
+
+    elusername.onkeyup = function () {
+        // 값을 입력한 경우
+        if (elusername.value.length !== 0) {
+            // 영어 또는 숫자 외의 값을 입력했을 경우
+            if (onlyNumberAndEnglish(elusername.value) === false) {
+                elSuccessMessage.classList.add('hide');
+                elFailureMessage.classList.add('hide');
+                elFailureMessageTwo.classList.remove('hide'); // 영어 또는 숫자만 가능합니다
+     required2 = 0;
+            }
+            // 글자 수가 4~12글자가 아닐 경우
+            else if (idLength(elusername.value) === false) {
+                elSuccessMessage.classList.add('hide'); // 성공 메시지가 가려져야 함
+                elFailureMessage.classList.remove('hide'); // 아이디는 4~12글자이어야 합니다
+                elFailureMessageTwo.classList.add('hide'); // 실패 메시지2가 가려져야 함
+     required2 = 0;
+            }
+            // 조건을 모두 만족할 경우
+            else if (idLength(elusername.value) || onlyNumberAndEnglish(elusername.value)) {
+                elSuccessMessage.classList.remove('hide'); // 사용할 수 있는 아이디입니다
+                elFailureMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+                elFailureMessageTwo.classList.add('hide'); // 실패 메시지2가 가려져야 함
+     required2 = 1;
+            }
+        }
+        // 값을 입력하지 않은 경우 (지웠을 때)
+        // 모든 메시지를 가린다.
+        else {
+            elSuccessMessage.classList.add('hide');
+            elFailureMessage.classList.add('hide');
+            elFailureMessageTwo.classList.add('hide');
+     required2 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    }
+
+    elInputPassword.onkeyup = function () { // 비밀번호
+
+        // console.log(elInputPassword.value);
+        // 값을 입력한 경우
+        if (elInputPassword.value.length !== 0) {
+            if (strongPassword(elInputPassword.value)) {
+                elStrongPasswordMessage.classList.add('hide'); // 성공 메세지 드러내기
+                passsuccessmessage.classList.remove('hide'); // 실패 메세지 가리기
+     required3 = 1;
+            }
+            else {
+                passsuccessmessage.classList.add('hide'); // 성공 메세지 가리기
+                elStrongPasswordMessage.classList.remove('hide'); // 실패 메세지 드러내기
+     required3 = 0;
+            }
+        }
+        // 값을 입력하지 않은 경우 (지웠을 때)
+        // 모든 메시지를 가린다.
+        else {
+            elStrongPasswordMessage.classList.add('hide');
+            passsuccessmessage.classList.add('hide');
+     required3 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    };
+
+    elInputPasswordRetype.onkeyup = function () {
+        // console.log(elInputPasswordRetype.value);
+        if (elInputPasswordRetype.value.length !== 0) {
+            if (isMatch(elInputPassword.value, elInputPasswordRetype.value)) {
+                elMismatchMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+                required4 = 1;
+            }
+            else {
+                elMismatchMessage.classList.remove('hide'); // 실패 메시지가 보여야 함
+                required4 = 0;
+            }
+        }
+        else {
+            elMismatchMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+            required4 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    };
+    
+        callname.onkeyup = function () {
+            if (callname.value.length !== 0) {
+                if (onlyNumber(callname.value) === false) {
+                    notnummessage.classList.remove('hide'); // 메세지 드러내기
+                    required6 = 0;
+                } else {
+                    notnummessage.classList.add('hide'); //메세지 가리기
+                    required5 = 1;
+                    required6 = 1;
+                }
+            }
+            else {
+                notnummessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+                required6 = 0;
+            }
+            notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+        };
+
+
+        signup.addEventListener('click', () => {
+        if (signup.disabled) {
+            alert('Please fill at least 8 fields.');
+        } else {
+            alert('회원가입 되었습니다.');
+            // 여기에 다음 단계로 넘어가는 로직을 추가하세요.
+                    window.location.href = '/project/html/jinjalogin.html';
+        }
+
+
+        })
+</script>
 </html>
