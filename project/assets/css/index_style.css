@@ -4,9 +4,9 @@ a {text-decoration: none;}
 
 /* ===============대가리부분======================= */
 header {
-  height: 80px;
+  height: 100px;
   width: 100%;
-  background: linear-gradient(to left,#DB4553, #F05F32); 
+  background: linear-gradient(to right,#00131A, #183961); 
   color: #fff;
   text-align: center;
   position: sticky;
@@ -87,13 +87,14 @@ li > ul {
 }
 
 /* ===============몸통부분======================= */
+
+
 .main_contents {
   height: 100%;
   max-width: 100%;
   margin: auto;
   padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background: linear-gradient(to top,#00131A, #5b5858);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
