@@ -94,7 +94,7 @@ li > ul {
   max-width: 100%;
   margin: auto;
   padding: 20px;
-  background: linear-gradient(to top,#00131A, #5b5858);
+  background-color: white ;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

@@ -115,7 +115,7 @@ function showTimeSlots(date) {
         hallContainer.innerHTML = `<strong>${hall}</strong>`; // 영화관 이름을 설정합니다.
         timeSlotsContainer.appendChild(hallContainer); // 영화관 컨테이너를 시간 슬롯 컨테이너에 추가합니다.
 
-        const existingHours = [9, 11, 13, 15, 17, 19, 21]; // 기존 시간대를 배열로 설정합니다.
+        const existingHours = [ 11, 13, 17, 21]; // 기존 시간대를 배열로 설정합니다.
         existingHours.forEach(hour => {
             const timeSlot = document.createElement("div"); // 시간 슬롯 요소를 만듭니다.
             timeSlot.classList.add("time-slot"); // 시간 슬롯 스타일을 추가합니다.
@@ -133,8 +133,6 @@ function showTimeSlots(date) {
     });
 }
 
-
-
 function reserveTime(date, hour, hall) {
     const region = regionSelector.value;
     const cinema = cinemaSelector.value;
@@ -142,4 +140,10 @@ function reserveTime(date, hour, hall) {
     const timeEnd = (hour + 2).toString().padStart(2, '0') + ":00"; // 끝 시간을 형식에 맞게 설정합니다.
     alert(`${region} 지역 ${cinema} ${hall}\n${date}일 ${timeStart}-${timeEnd}으로 예약 하였습니다.`); // 예약 완료 메시지를 표시합니다.
     location.href="/html/Ticketing.html"
+}
+
+// 애니메이션을 추가합니다.
+window.onload = function() {
+    const cat = document.getElementById('cat');
+    cat.classList.add('animate');
 }

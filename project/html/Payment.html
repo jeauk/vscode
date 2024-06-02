@@ -7,15 +7,49 @@
     <title>Payment Page</title>
     <style>
         /* styles.css */
+        body{
+            background-color: #040404;
+        }
         .container {
-            max-width: 400px;
+
+            width: 400px;
+            background: linear-gradient(#212121, #212121) padding-box,
+            linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
+            border: 5px solid transparent;
+            padding: 32px 24px;
+            font-size: 14px;
+            font-family: inherit;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+            background-size: 200% 100%;
+            animation: gradient 2s ease infinite;
+
             height: 600px;
             margin: 50px auto;
-            border: 5px solid #ccc;
             border-radius: 30px;
             text-align: center;
             
         }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+            }
+            form{
+                margin-top: 50px;
+            }
+            
 
         button {
             width: 100%;
@@ -25,15 +59,20 @@
             border-radius: 5px;
             cursor: pointer;
             padding: 10px;
-            margin-top: 10px;
+            margin-top: 40px;
         }
 
         button:hover {
             background-color: #0056b3;
         }
-
+        img{
+            margin-top: -60px;
+            height: 250px;
+            width: 250px;
+        }
         .hidden {
             display: none;
+           
         }
     </style>
 </head>
@@ -73,6 +112,7 @@
 
         <!-- 휴대폰결제 폼 -->
         <form id="mobilePaymentForm" class="hidden">
+            <img src="/images/a.jpg" alt="QR코드">
             <button onclick="mobilePayment()">결제하기</button>
         </form>
     </div>

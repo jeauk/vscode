@@ -4,15 +4,16 @@ a {text-decoration: none;}
 
 /* ===============대가리부분======================= */
 header {
-  height: 80px;
+  height: 100px;
   width: 100%;
-  background: linear-gradient(to left,#DB4553, #F05F32); 
+  background: linear-gradient(to right,#00131A, #183961); 
   color: #fff;
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
+
 
 .title_name {
   float: left;

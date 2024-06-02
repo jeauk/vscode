@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VGC</title>
-  <link rel="stylesheet" href="/assets/css/list_style.css">
-  <link rel="icon" href="../images/icon.png"/>
+  <title>영화 목록</title>
+  <link rel="stylesheet" href="/assets/css/movie_list.css">
+  <link rel="icon" href="../images/icon.png" />
 </head>
 
 <body>
-  <!-- ===============대가리부분===================== -->
+  <!-- ===============헤더===================== -->
   <header>
     <div class="title">
       <div class="title_name">
         <a href="/index.html">
-          <img src="/images/logo.png"></img>
+          <img class="logo" src="/images/logo.png" alt="로고">
         </a>
       </div>
       <div class="title_menu">
         <nav>
           <ul class="menu_a">
             <li>
-              <a href="/html/movie_list.html">영화목록</a>
+              <a href="/movie_list.html">영화목록</a>
               <ul class="submenu_a">
                 <li><a href="#">영화1</a></li>
                 <li><a href="#">영화2</a></li>
@@ -51,27 +51,55 @@
       </div>
     </div>
   </header>
-  <!-- ===============대가리부분===================== -->
+  <!-- ===============헤더===================== -->
 
-  <!-- ===============몸통부분======================= -->
-<main>
-  <div class="main_contents">
-    <div class="content_title">
-    </div>
-    <div class="content_imgBox">
-      <div class="imgBox_title">
-      </div> 
-      <div class="imgBox_images">
+  <!-- ===============메인======================= -->
+  <main>
+    <div class="contents">
+      <h1>영화목록</h1>
+      <div class="movie-list" id="movie-list">
+        <!-- 영화 목록이 여기에 동적으로 추가됩니다. -->
       </div>
     </div>
-  </div>
-</main>
-  <!-- ===============몸통부분======================= -->
+  </main>
+  <!-- ===============메인======================= -->
 
+  <!-- ===============스크립트======================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      fetch('http://localhost:8080/movies/Movies.jsp')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const movieList = document.getElementById('movie-list');
+          data.forEach(movie => {
+            const movieDiv = document.createElement('div');
+            movieDiv.classList.add('movie');
 
+            movieDiv.innerHTML = `
+              <a href="/html/reservation.html">
+                <img src="${movie.poster_url}" alt="${movie.title}">
+                <div class="container">
+                  <h2 class="title">${movie.title}</h2>
+                  <p class="genre">장르 : ${movie.genre}</p>
+                  <p class="rating">⭐${movie.rating}</p>
+                  <p class="release_date">개봉일 : ${movie.release_date}<p>
+                  <p class="description">${movie.description}</p>
+                  
+                </div>
+              </a>
+            `;
 
-  <script src="assets/js/index.js"></script>
-  <!-- ===============바닥부분======================= -->
+            movieList.appendChild(movieDiv);
+          });
+        })
+        .catch(error => console.error('Error fetching movie data:', error));
+    });
+  </script>
 </body>
 
 </html>
