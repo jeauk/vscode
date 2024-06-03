@@ -139,7 +139,7 @@ function reserveTime(date, hour, hall) {
     const timeStart = hour.toString().padStart(2, '0') + ":00"; // 시작 시간을 형식에 맞게 설정합니다.
     const timeEnd = (hour + 2).toString().padStart(2, '0') + ":00"; // 끝 시간을 형식에 맞게 설정합니다.
     alert(`${region} 지역 ${cinema} ${hall}\n${date}일 ${timeStart}-${timeEnd}으로 예약 하였습니다.`); // 예약 완료 메시지를 표시합니다.
-    location.href="/html/Ticketing.html"
+    location.href="/html/ticketing.html"
 }
 
 // 애니메이션을 추가합니다.

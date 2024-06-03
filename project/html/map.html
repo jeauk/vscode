@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>여러개 마커 표시하기</title>
+   
+</head>
+<body>
+<div id="map" style="width:100%;height:350px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=82f9c0f239f216a93e0011d6dcccf361"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = {
+        center: new kakao.maps.LatLng(35.16927324017287,129.13066647930626), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ 
+// 마커를 표시할 위치와 title 객체 배열입니다
+var positions = [
+    {
+        title: 'cgv 강남점',
+        latlng: new kakao.maps.LatLng(37.5016428104731, 127.026336096148)
+    },
+    {
+        title: 'cgv 홍대점',
+        latlng: new kakao.maps.LatLng(37.5564943733388, 126.922631917858)
+    },
+    {
+        title: 'cgv 건대입구점',
+        latlng: new kakao.maps.LatLng(37.5397607621364, 127.066887730045)
+    },
+    {
+        title: 'cgv 센텀점',
+        latlng: new kakao.maps.LatLng(35.16909274366045, 129.13036787069763)
+    },
+    {
+        title: 'cgv 서면점',
+        latlng: new kakao.maps.LatLng(35.153006221653 , 129.059606320437)
+    },
+    {
+        title: 'cgv 온천장점',
+        latlng: new kakao.maps.LatLng(35.2211719490401, 129.085522588953)
+    },
+    {
+        title: 'cgv 창원중앙점',
+        latlng: new kakao.maps.LatLng(35.2345062273143 , 128.642191463075)
+    },
+    {
+        title: 'cgv 합성점',
+        latlng: new kakao.maps.LatLng(35.2375407358846 , 128.582439747064)
+    },
+    {
+        title: 'cgv 진해점',
+        latlng: new kakao.maps.LatLng(35.2226862850042 , 128.681435820255)
+    },
+    {
+        title: 'cgv 대구중앙점',
+        latlng: new kakao.maps.LatLng(35.8699830565434 , 128.594320754079)
+    },
+    {
+        title: 'cgv 수성점',
+        latlng: new kakao.maps.LatLng(35.8210722437672 , 128.640360796903)
+    },
+    {
+        title: 'cgv 북구점',
+        latlng: new kakao.maps.LatLng(35.8852255662606 , 128.58978990597)
+    }
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+   
+for (var i = 0; i < positions.length; i ++) {
+   
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+   
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+   
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+}
+</script>
+</body>
+</html>

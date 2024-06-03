@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>영화 예약 완료</title>
+  <link rel="stylesheet" href="/assets/css/ticket.css">
+  <link rel="stylesheet" href="/assets/css/index_style.css">
+  <link rel="icon" href="/images/icon.png">
+</head>
+
+<body>
+  <header>
+    <div class="title">
+      <div class="title_name">
+        <a href="/index.html">
+          <img src="/images/logo.png"></img>>
+        </a>
+      </div>
+      <div class="title_menu">
+        <nav>
+          <ul class="menu_a">
+            <li>
+              <a href="/html/movie_list.html">영화</a>
+
+            </li>
+            <li>
+              <a href="#">예약</a>
+
+            </li>
+            <li>
+              <a href="/html/map.html">극장</a>
+            </li>
+          </ul>
+          <ul class="menu_b">
+            <li><a href="/html/jinjalogin.html">로그인</a></li>
+            <li><a href="/html/joinanim.html">회원가입</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <div class="container2">
+    <div class="title2">
+      <h1>영화 예약이 완료되었습니다!</h1>
+      <p>다음은 예약한 티켓 정보입니다.</p>
+    </div>
+    <div class="movie2">
+      <img src="/images/001.jpg" alt="선택한 영화"></img>
+    </div>
+    <div class="ticket">
+      <div class="location">
+        지역: <span id="ticketlocation">서울</span>
+      </div>
+      <div class="hall">
+        영화관: <span id="ticketHall">강남점</span>
+      </div>
+      <div class="spot">
+        상영관: <span id="ticketSpot">1관</span>
+      </div>
+      <div class="seat">
+        좌석: <span id="tichetSeat">J10</span>
+      </div>
+      <div class="date">
+        날짜: <span id="ticketDate">2024-06-10</span>
+      </div>
+      <div class="time">
+        시간: <span id="ticketTime">14:00 - 16:00</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 로컬 스토리지에서 데이터 가져오기
+    var ticketData = JSON.parse(localStorage.getItem('ticketData'));
+
+    // HTML 요소에 데이터 삽입
+    document.getElementById('ticketlocation').textContent = ticketData.location;
+    document.getElementById('ticketHall').textContent = ticketData.hall;
+    document.getElementById('ticketSpot').textContent = ticketData.spot;
+    document.getElementById('ticketDate').textContent = ticketData.date;
+    document.getElementById('startTime').textContent = ticketData.starttime;
+    document.getElementById('endTime').textContent = ticketData.endtime;
+  </script>
+</body>
+
+</html>
