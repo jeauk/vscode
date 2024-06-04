@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+header {
+  height: 100px;
+  width: 100%;
+  background: linear-gradient(to right, #00131A, #183961); 
+  color: #fff;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.title_name {
+  float: left;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  width: 25%;
+  justify-content: flex-start;
+}
+
+.title_t {
+  margin: auto;
+}
+
+.title {
+  width: 100%;
+  height: 100%;
+}
+
+.title_menu {
+  position: relative;
+  width: 75%;
+  height: 100%;
+  float: left;
+  display: flex;
+  align-items: flex-end;
+}
+
+nav {
+  float: left;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+
+nav ul li a {
+  margin-left: 40px;
+  float: left;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 45px;
+}
+
+.menu_b {
+  width: 100%;
+  height: 100%;
+}
+
+.menu_b li {
+  float: right;
+  margin-right: 30px;
+}
+
+.loc_menuA, .loc_menuB, .loc_menuC, .loc_menuD {
+  margin: 10px;
+  width: calc(25% - 20px);
+  float: left;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.loc_menuA:hover, .loc_menuB:hover, .loc_menuC:hover, .loc_menuD:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.area {
+  display: none;
+  padding: 10px;
+}
+
+.loc_menuA.active .area, .loc_menuB.active .area, .loc_menuC.active .area, .loc_menuD.active .area {
+  display: block;
+}
+
+.area li a {
+  display: block;
+  padding: 5px;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.area li a:hover {
+  color: #007bff;
+}
+.area li a {
+  color: #ffffff;
+}
+
+.favorite-wrap a {
+  display: block;
+  background-color: #031722;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.favorite-wrap a:hover {
+  background-color: #0056b3;
+}
+
+#map {
+  margin-top: 50px;
+}

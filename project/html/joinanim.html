@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link href="/assets/css/joinform.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/joinanimstyle.css">
+    <link rel="icon" href="../images/icon.png"/>
+    <style>
+        .boton-elegante {
+            width: 400px; /* 입력창과 같은 너비 */
+            height: 45px; /* 입력창과 같은 높이 */
+            margin: 10px;
+            border: 2px solid #2c2c2c;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px; /* 입력창과 동일하게 조정 */
+            transition: all 0.4s ease;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+        }
+
+        .boton-elegante::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle,
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 255, 255, 0) 70%
+            );
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .boton-elegante:hover::after {
+            transform: scale(4);
+        }
+
+        .boton-elegante:hover {
+            border-color: #666666;
+            background: #292929;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 22px); /* 100% 너비에서 패딩과 보더를 뺀 값 */
+            height: 45px; /* 입력창 높이 */
+            padding: 10px; /* 입력창 패딩 */
+            margin: 10px 0; /* 입력창 상하 마진 */
+            border-radius: 5px; /* 입력창 테두리 곡률 */
+            border: 1px solid #ccc; /* 입력창 테두리 색상 */
+            box-sizing: border-box; /* 보더와 패딩을 포함한 전체 너비와 높이 계산 */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="title">
+          <div class="title_name">
+            <a href="/index.html">
+              <img src="/images/logo.png">
+            </a>
+          </div>
+          <div class="title_menu">
+            <nav>
+              <ul class="menu_a">
+                <li>
+                  <a href="/html/movie_list.html">영화목록</a>
+                </li>
+                <li>
+                  <a href="#">예약</a>
+                </li>
+                <li>
+                  <a href="/html/map.html">극장</a>
+                </li>
+              </ul>
+              <ul class="menu_b">
+                <li><a href="/html/jinjalogin.html">로그인</a></li>
+                <li><a href="/html/joinanim.html">회원가입</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+    <main>
+        <div class="img_box">
+            <img src="/images/loginlogo.jpg">
+        </div>
+        <div class="clot">
+            <p>C Lot 회원이 되시면 하나의 통합된 회원 ID와 비밀번호로</p>
+            <p>VGC와 C Lot의 다양한 서비스를 이용하실 수 있습니다.</p>
+        </div>
+        <fieldset>
+            <input type="text" id="useremail" placeholder="이메일">
+        </fieldset>
+        <div class="mailsuccess-message hide">사용할 수 있는 이메일입니다</div>
+        <div class="mailfail-message hide">이메일 형식이 아닙니다</div>
+        <div class="mailduplicate-message hide">이미 사용중인 이메일입니다</div>
+
+        <fieldset>
+            <input type="text" id="username" placeholder="아이디" />
+        </fieldset>
+
+        <div class="success-message hide">사용할 수 있는 아이디입니다</div>
+        <div class="failure-message hide">아이디는 4~12글자이어야 합니다</div>
+        <div class="failure-message2 hide">영어 또는 숫자만 가능합니다</div>
+        <div class="duplicate-message hide">이미 사용중인 아이디입니다</div>
+
+        <fieldset>
+            <input type="password" id="password" placeholder="비밀번호" />
+        </fieldset>
+        <div class="passsuccess-message hide">사용할 수 있는 비밀번호입니다</div>
+        <div class="strongPassword-message hide">8글자 이상, 영문, 숫자, 특수문자(@$!%*#?&)를 사용하세요</div>
+
+        <fieldset>
+            <input type="password" id="password-retype" placeholder="비밀번호 확인" />
+        </fieldset>
+        <div class="mismatch-message hide">비밀번호가 일치하지 않습니다</div>
+
+        <fieldset>
+            <input type="text" id="name" placeholder="성명" />
+        </fieldset>
+        <fieldset>
+            <input type="text" id="callname" placeholder="전화번호" />
+        </fieldset>
+        <div class="notnum-message hide">숫자만 적어야 합니다.</div>
+
+        <fieldset class="signup">
+            <button type="button" id="signupim" class="boton-elegante" disabled>회원가입</button>
+        </fieldset>
+
+    </main>
+</body>
+<script>
+    let useremail = document.querySelector('#useremail'); 
+    let mailsuccessmessage = document.querySelector('.mailsuccess-message'); 
+    let mailfailmessage = document.querySelector('.mailfail-message'); 
+    let mailduplicateMessage = document.querySelector('.mailduplicate-message');
+
+    let elusername = document.querySelector('#username'); 
+    let elSuccessMessage = document.querySelector('.success-message'); 
+    let elFailureMessage = document.querySelector('.failure-message');
+    let elFailureMessageTwo = document.querySelector('.failure-message2'); 
+    let elDuplicateMessage = document.querySelector('.duplicate-message');
+
+    let elInputPassword = document.querySelector('#password');
+    let passsuccessmessage = document.querySelector('.passsuccess-message');
+    let elStrongPasswordMessage = document.querySelector('.strongPassword-message');
+
+    let elInputPasswordRetype = document.querySelector('#password-retype');
+    let elMismatchMessage = document.querySelector('.mismatch-message');
+
+    let name = document.querySelector('#name');
+    let callname = document.querySelector('#callname');
+    let notnummessage = document.querySelector('.notnum-message');
+    const requiredFilledCount = 6;
+    const signup = document.getElementById('signupim');
+
+    let required1 = 0;
+    let required2 = 0;
+    let required3 = 0;
+    let required4 = 0;
+    let required5 = 0;
+    let required6 = 0;
+    let notdisabled = 0;
+
+    function idLength(value) {
+        return value.length >= 4 && value.length <= 12;
+    }
+    function onlyNumberAndEnglish(str) {
+        return /^[A-Za-z0-9][A-Za-z0-9]*$/.test(str);
+    }
+    function strongPassword(str) {
+        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(str);
+    }
+    function isMatch(password1, password2) {
+        return password1 === password2;
+    }
+    function isValidEmail(str) {
+        return str.includes('@') && str.endsWith('.com');
+    }
+    function onlyNumber(str){
+        return /^\d*$/.test(str);
+    }
+
+    async function checkDuplicate(field, value) {
+        const res = await fetch(`http://127.0.0.1:8080/vgc/checkduplicate.jsp?field=${field}&value=${value}`);
+        const data = await res.json();
+        return data.isDuplicate;
+    }
+
+    useremail.onkeyup = async function () {
+        if (isValidEmail(useremail.value)) {
+            const isDuplicate = await checkDuplicate('useremail', useremail.value);
+            if (isDuplicate) {
+                mailduplicateMessage.classList.remove('hide');
+                mailsuccessmessage.classList.add('hide');
+                mailfailmessage.classList.add('hide');
+                required1 = 0;
+            } else {
+                mailsuccessmessage.classList.remove('hide');
+                mailfailmessage.classList.add('hide');
+                mailduplicateMessage.classList.add('hide');
+                required1 = 1;
+            }
+        } else {
+            mailfailmessage.classList.remove('hide');
+            mailsuccessmessage.classList.add('hide');
+            mailduplicateMessage.classList.add('hide');
+            required1 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    };
+
+    elusername.onkeyup = async function () {
+        if (elusername.value.length !== 0) {
+            if (onlyNumberAndEnglish(elusername.value) === false) {
+                elSuccessMessage.classList.add('hide');
+                elFailureMessage.classList.add('hide');
+                elFailureMessageTwo.classList.remove('hide');
+                elDuplicateMessage.classList.add('hide');
+                required2 = 0;
+            } else if (idLength(elusername.value) === false) {
+                elSuccessMessage.classList.add('hide');
+                elFailureMessage.classList.remove('hide');
+                elFailureMessageTwo.classList.add('hide');
+                elDuplicateMessage.classList.add('hide');
+                required2 = 0;
+            } else {
+                const isDuplicate = await checkDuplicate('userId', elusername.value);
+                if (isDuplicate) {
+                    elDuplicateMessage.classList.remove('hide');
+                    elSuccessMessage.classList.add('hide');
+                    elFailureMessage.classList.add('hide');
+                    elFailureMessageTwo.classList.add('hide');
+                    required2 = 0;
+                } else {
+                    elSuccessMessage.classList.remove('hide');
+                    elFailureMessage.classList.add('hide');
+                    elFailureMessageTwo.classList.add('hide');
+                    elDuplicateMessage.classList.add('hide');
+                    required2 = 1;
+                }
+            }
+        } else {
+            elSuccessMessage.classList.add('hide');
+            elFailureMessage.classList.add('hide');
+            elFailureMessageTwo.classList.add('hide');
+            elDuplicateMessage.classList.add('hide');
+            required2 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    }
+
+    elInputPassword.onkeyup = function () {
+        if (elInputPassword.value.length !== 0) {
+            if (strongPassword(elInputPassword.value)) {
+                elStrongPasswordMessage.classList.add('hide');
+                passsuccessmessage.classList.remove('hide');
+                required3 = 1;
+            } else {
+                passsuccessmessage.classList.add('hide');
+                elStrongPasswordMessage.classList.remove('hide');
+                required3 = 0;
+            }
+        } else {
+            elStrongPasswordMessage.classList.add('hide');
+            passsuccessmessage.classList.add('hide');
+            required3 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    };
+
+    elInputPasswordRetype.onkeyup = function () {
+        if (elInputPasswordRetype.value.length !== 0) {
+            if (isMatch(elInputPassword.value, elInputPasswordRetype.value)) {
+                elMismatchMessage.classList.add('hide');
+                required4 = 1;
+            } else {
+                elMismatchMessage.classList.remove('hide');
+                required4 = 0;
+            }
+        } else {
+            elMismatchMessage.classList.add('hide');
+            required4 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    };
+
+    callname.onkeyup = function () {
+        if (callname.value.length !== 0) {
+            if (onlyNumber(callname.value) === false) {
+                notnummessage.classList.remove('hide');
+                required6 = 0;
+            } else {
+                notnummessage.classList.add('hide');
+                required5 = 1;
+                required6 = 1;
+            }
+        } else {
+            notnummessage.classList.add('hide');
+            required6 = 0;
+        }
+        notdisabled = required1 + required2 + required3 + required4 + required5 + required6;
+        signup.disabled = notdisabled < requiredFilledCount;
+    };
+
+    signup.addEventListener('click', () => {
+        if (signup.disabled) {
+            alert('Please fill all required fields.');
+        } else {
+            sendData().then(res => {
+                alert(res.msg);
+                if (res.code === 200) {
+                    window.location.href = '/html/jinjalogin.html';
+                }
+            });
+        }
+    });
+
+    async function sendData() {
+        const userEmail = document.querySelector('#useremail');
+        const userId = document.querySelector('#username');
+        const userPassword = document.querySelector('#password');
+        const userName = document.querySelector('#name');
+        const userCallname = document.querySelector('#callname');
+
+        const formData = new FormData();
+        formData.append('useremail', userEmail.value);
+        formData.append('userId', userId.value);
+        formData.append('userPassword', userPassword.value);
+        formData.append('userName', userName.value);
+        formData.append('userCallname', userCallname.value);
+
+        const payload = new URLSearchParams(formData);
+
+        const res = await fetch('http://127.0.0.1:8080/vgc/signup.jsp', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: payload
+        });
+        const data = await res.json();
+        return data;
+    }
+</script>
+</html>

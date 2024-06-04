@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 예약 시스템</title>
+    <link rel="stylesheet" href="/assets/css/reservation.css">
+    <link rel="icon" href="../images/icon.png">
+</head>
+<body> 
+    <div class="selector">
+        <select id="regionSelector">
+            <option value="" selected disabled>지역 선택</option>
+            <option value="서울">서울</option>
+            <option value="대구">대구</option>
+            <option value="부산">부산</option>
+            <option value="창원">창원</option>
+            <!-- 다른 지역 옵션들을 추가 -->
+        </select>
+        <select id="cinemaSelector" disabled>
+            <option value="" selected disabled>영화관 선택</option>
+
+            <!-- 선택된 지역에 따라 자바스크립트로 동적으로 영화관 옵션들이 추가될 예정 -->
+        </select>
+    </div>
+    <div>
+    <h1>날짜 선택</h1> <!-- 제목을 설정합니다. -->
+</div>
+<div class="calendar-container"> <!-- 달력 컨테이너를 설정합니다. -->
+    <div class="calendar-header"> <!-- 달력 헤더를 설정합니다. -->
+        <button id="prevBtn">이전 달</button> <!-- 이전 달로 가는 버튼을 설정합니다. -->
+        <h2 id="currentMonth"></h2> <!-- 현재 월을 표시할 영역을 설정합니다. -->
+        <button id="nextBtn">다음 달</button> <!-- 다음 달로 가는 버튼을 설정합니다. -->
+    </div>
+    <div class="calendar-days"> <!-- 요일 헤더를 설정합니다. -->
+        <div class="sunday">SUN</div> <!-- 일요일을 표시합니다. -->
+        <div class="day">MON</div> <!-- 월요일을 표시합니다. -->
+        <div class="day">TUE</div> <!-- 화요일을 표시합니다. -->
+        <div class="day">WED</div> <!-- 수요일을 표시합니다. -->
+        <div class="day">THU</div> <!-- 목요일을 표시합니다. -->
+        <div class="day">FRI</div> <!-- 금요일을 표시합니다. -->
+        <div class="saturday">SAT</div> <!-- 토요일을 표시합니다. -->
+    </div>
+    <div class="calendar-dates" id="calendarDates"></div> <!-- 날짜를 표시할 영역을 설정합니다. -->
+</div>
+
+<div class="time-slot-container" id="timeSlotsContainer"> <!-- 시간 슬롯 컨테이너를 설정합니다. -->
+
+</div>
+
+<img id="cat" src="/images/cat-solid-24.png" alt="Cat Image" />
+
+<script src="/assets/js/reservation.js"></script>
+</body>
+</html>

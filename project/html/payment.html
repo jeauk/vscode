@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        /* styles.css */
+        body {
+            background-color: #040404;
+        }
+
+        .container {
+
+            width: 400px;
+            background: linear-gradient(#212121, #212121) padding-box,
+                linear-gradient(145deg, transparent 35%, #e81cff, #40c9ff) border-box;
+            border: 5px solid transparent;
+            padding: 32px 24px;
+            font-size: 14px;
+            font-family: inherit;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+            background-size: 200% 100%;
+            animation: gradient 2s ease infinite;
+
+            height: 600px;
+            margin: 50px auto;
+            border-radius: 30px;
+            text-align: center;
+
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        form {
+            margin-top: 50px;
+        }
+
+
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 40px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            margin-top: -60px;
+            height: 250px;
+            width: 250px;
+        }
+
+        .hidden {
+            display: none;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>결제 창</h1>
+        <h2>
+            <label>
+                <label id="bankTransfer" >
+                    <input type="radio" name="paymentMethod" id="bankTransfer" value="bankTransfer"
+                        onchange="showPaymentForm('bankTransfer')"> 무통장입금
+                </label>
+                <label id="mobilePayment">
+                    <input type="radio" name="paymentMethod" id="mobilePayment" value="mobilePayment"
+                        onchange="showPaymentForm('mobilePayment')"> 휴대폰결제
+                </label>
+            </label>
+        </h2>
+
+
+        <!-- 무통장입금 폼 -->
+        <form id="bankTransferForm" class="hidden" onsubmit="handleBankTransfer(event)">
+            <label for="bank">은행 선택</label>
+            <select id="bank" required>
+                <option value="">은행을 선택하세요</option>
+                <option value="KB">국민은행</option>
+                <option value="Shinhan">신한은행</option>
+                <option value="Woori">우리은행</option>
+            </select>
+            <p>
+                <label for="accountNumber">계좌번호</label>
+                <input type="text" id="accountNumber" required>
+            </p>
+            <p>
+                <label for="depositor">입금자명</label>
+                <input type="text" id="depositor" required>
+            </p>
+            <button type="submit">확인</button>
+        </form>
+
+        <!-- 휴대폰결제 폼 -->
+        <form id="mobilePaymentForm" class="hidden">
+            <img src="/images/a.jpg" alt="QR코드">
+            <button onclick="mobilePayment()">결제하기</button>
+        </form>
+    </div>
+
+    <script>
+        function showPaymentForm(paymentMethod) {
+            document.querySelectorAll('form').forEach(form => {
+                form.classList.add('hidden');
+            });
+
+            document.getElementById(paymentMethod + 'Form').classList.remove('hidden');
+        }
+
+
+        async function awaitPayment() {
+            // 무통장입금 완료 대기 시 5초 대기 후 알림창을 띄웁니다.
+            alert('무통장입금 확인을 기다려주세요.');
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
+
+        async function handleBankTransfer(e) {
+            e.preventDefault(); // 기본 이벤트(폼 제출)를 막습니다.
+            const bank = document.getElementById('bank').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            const depositor = document.getElementById('depositor').value;
+
+            // 무통장입금 처리 전에 5초 대기합니다.
+            await awaitPayment();
+
+            // 무통장입금 처리 로직을 추가합니다.
+            // 서버로 결제 정보를 전송하거나 다른 처리를 수행합니다.
+            alert(`무통장입금이 완료되었습니다. 은행: ${bank}, 계좌번호: ${accountNumber}, 입금자명: ${depositor}`);
+            //나중에 바꿀것 네이버로 설정되어있음
+            opener.location.href = "/html/ticket.html";
+            close();
+        }
+
+
+        function mobilePayment() {
+            // 휴대폰 결제 처리 로직을 추가합니다.
+            // 사용자를 결제 페이지로 이동시키거나 결제 프로세스를 진행합니다.
+            alert('휴대폰으로 결제가 완료되었습니다!');
+
+            // 일정 시간이 지난 후에 페이지를 이동시킵니다.
+            //나중에 바꿀것 네이버로 설정되어있음
+            opener.location.href = "/html/ticket.html";
+            close();
+        }
+
+    </script>
+</body>
+
+</html>
