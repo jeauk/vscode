@@ -1,3 +1,4 @@
+
 const regionSelector = document.getElementById("regionSelector");
 const cinemaSelector = document.getElementById("cinemaSelector");
 const calendarDates = document.getElementById("calendarDates"); // 달력 날짜 영역을 가져옵니다.
@@ -5,6 +6,9 @@ const currentMonthElement = document.getElementById("currentMonth"); // 현재 �
 const prevBtn = document.getElementById("prevBtn"); // 이전 달 버튼을 가져옵니다.
 const nextBtn = document.getElementById("nextBtn"); // 다음 달 버튼을 가져옵니다.
 const timeSlotsContainer = document.getElementById("timeSlotsContainer"); // 시간 슬롯 컨테이너를 가져옵니다.
+
+const timeStart = 0;
+const timeEnd = 0;
 
 const today = new Date(); // 오늘 날짜를 가져옵니다.
 let currentMonth = today.getMonth(); // 현재 월을 가져옵니다.
@@ -104,7 +108,6 @@ function selectItem(element) {
     });
     element.classList.add("selected"); // 클릭한 항목을 선택 상태로 만듭니다.
 }
-
 // 시간 슬롯을 표시하는 함수
 function showTimeSlots(date) {
     timeSlotsContainer.innerHTML = ""; // 기존의 시간대를 초기화합니다.
@@ -115,7 +118,7 @@ function showTimeSlots(date) {
         hallContainer.innerHTML = `<strong>${hall}</strong>`; // 영화관 이름을 설정합니다.
         timeSlotsContainer.appendChild(hallContainer); // 영화관 컨테이너를 시간 슬롯 컨테이너에 추가합니다.
 
-        const existingHours = [ 11, 13, 17, 21]; // 기존 시간대를 배열로 설정합니다.
+        const existingHours = [11, 15, 17, 21]; // 기존 시간대를 배열로 설정합니다.
         existingHours.forEach(hour => {
             const timeSlot = document.createElement("div"); // 시간 슬롯 요소를 만듭니다.
             timeSlot.classList.add("time-slot"); // 시간 슬롯 스타일을 추가합니다.
@@ -124,26 +127,67 @@ function showTimeSlots(date) {
             const ampmStart = hour < 12 ? "AM" : "PM"; // 시작 시간의 오전과 오후를 표시합니다.
             const ampmEnd = (hour + 2) < 12 ? "AM" : "PM"; // 종료 시간의 오전과 오후를 표시합니다.
             timeSlot.textContent = `${displayHourStart}:00 ${ampmStart} - ${displayHourEnd}:00 ${ampmEnd}`; // 시간 슬롯을 텍스트로 설정합니다.
-            timeSlot.addEventListener("click", () => {
+            // console.log(timeSlot);
+            timeSlot.addEventListener("click", (e) => {
                 selectItem(timeSlot); // 시간 슬롯을 클릭했을 때 선택 상태로 변경합니다.
-                reserveTime(date, hour,hall); // 선택한 시간대를 예약합니다.
+
+                reserveTime(date, hour, hall); // 선택한 시간대를 예약합니다.
+               
+   
+               
+                sendData(e.target, date, hall).then(res => {
+                    alert(res.msg);
+                    if (res.code == 200) {
+                        window.location.href = '/project/html/jinjalogin.html';
+                    }
+                });
+
             });
             hallContainer.appendChild(timeSlot); // 시간 슬롯을 영화관 컨테이너에 추가합니다.
         });
     });
 }
 
+async function sendData(timeslot, date, hall2) {
+    // const form = document.querySelector('form');
+    
+    const regionSelector = document.querySelector('#regionSelector');
+    const cinemaSelector = document.querySelector('#cinemaSelector');
+    const dateElement = document.querySelector('#dateElement');
+    const timeSlotsContainer = timeslot.innerHTML.substring(0,5);
+    const timeSlotsContainer2 = timeslot.innerHTML.substring(10,15);
+
+    
+    
+    const formData = new FormData();
+    formData.append('regionSelector', regionSelector.value);
+    formData.append('cinemaSelector', cinemaSelector.value);
+    formData.append('hall2', `${hall2}`);
+    formData.append('dateElement', `${currentYear}-${currentMonth + 1}-${date}`);
+    formData.append('timeSlotsContainer', `${timeSlotsContainer}`);
+    formData.append('timeSlotsContainer2', `${timeSlotsContainer2}`);
+    
+    const payload = new URLSearchParams(formData);
+    
+    const res = await fetch('http://127.0.0.1:8080/vgc/reservation.jsp', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: payload
+    })
+    const data = await res.json();
+    return data;
+}
+
+
+
+
 function reserveTime(date, hour, hall) {
     const region = regionSelector.value;
     const cinema = cinemaSelector.value;
     const timeStart = hour.toString().padStart(2, '0') + ":00"; // 시작 시간을 형식에 맞게 설정합니다.
     const timeEnd = (hour + 2).toString().padStart(2, '0') + ":00"; // 끝 시간을 형식에 맞게 설정합니다.
-    alert(`${region} 지역 ${cinema} ${hall}\n${date}일 ${timeStart}-${timeEnd}으로 예약 하였습니다.`); // 예약 완료 메시지를 표시합니다.
+    alert(`${region} 지역 ${cinema} ${hall}\n${currentMonth + 1}월 ${date}일 ${timeStart} - ${timeEnd}에 예약하였습니다.`); // 예약 완료 메시지를 표시합니다.
     location.href="/html/ticketing.html"
-}
-
-// 애니메이션을 추가합니다.
-window.onload = function() {
-    const cat = document.getElementById('cat');
-    cat.classList.add('animate');
 }
